@@ -1,0 +1,38 @@
+#1.4.10 
+#Реализуйте программу, которая будет эмулировать работу с пространствами имен. Необходимо реализовать поддержку создания простанств имен и добавлнеие в них переменных.
+
+n = int(input())
+spisok_komand = []
+namespace_dct = dict()  
+variables_dct = dict()
+variables_dct['global'] = []
+namespace_dct['global'] = '1'
+
+
+for i in range(n):
+    spisok_komand.append(input().split())
+
+def create_namespace(slovar, slovar2, inner, external):
+    slovar[inner] = (external)
+    slovar2[inner] = []
+
+def rec(slovar, inner, slovar2, var):
+
+    if var in slovar2[inner]:
+        print(inner)
+    elif slovar[inner] == '1':
+        print('None')
+    else:
+        return(rec(slovar, slovar[inner], slovar2, var))
+    
+
+for i in spisok_komand:
+    
+    if i[0] == 'create':
+        create_namespace(namespace_dct, variables_dct, i[1], i[2])
+        
+    elif i[0] == 'add':
+        variables_dct[i[1]].append(i[2])
+    
+    else:
+        rec(namespace_dct, i[1], variables_dct, i[2])
