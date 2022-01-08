@@ -1,0 +1,5 @@
+class LoggableList(list, Loggable):
+    def append(self, elem):
+        super().append(elem)
+        super().log(elem)
+        print(str(time.ctime()) + ": " + str(elem))
