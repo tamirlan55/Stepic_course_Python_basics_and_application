@@ -1,0 +1,25 @@
+class ExtendedStack(list):
+    
+    def sum(self):
+        total = self[-1] + self[-2]
+        self.pop()
+        self.pop()
+        self.append(total)
+        
+    def sub(self):
+        difference = self[-1] - self[-2]
+        self.pop()
+        self.pop()
+        self.append(difference)
+        
+    def mul(self):
+        multiplication = self[-1] * self[-2]
+        self.pop()
+        self.pop()
+        self.append(multiplication)
+        
+    def div(self):
+        quatitent = self[-1] // self[-2]
+        self.pop()
+        self.pop()
+        self.append(quatitent)
