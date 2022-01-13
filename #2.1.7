@@ -1,0 +1,30 @@
+n = int(input())
+exception_list = []
+
+for i in range(n):
+    exception_list.append(input().split())
+
+m = int(input())
+task_list = []
+
+for i in range(m):
+    task_list.append(' '.join(input().split()))
+
+
+exception_dct = {}
+
+for i in exception_list:
+    if len(i) != 1:
+        exception_dct[i[0]] = i[2:]
+    else:
+        exception_dct[i[0]] = []
+for key in exception_dct:
+    for value in exception_dct[key]:
+        if value in exception_dct:
+            exception_dct[key].extend(exception_dct[value])
+
+for i in range(len(task_list)):
+    for j in range(i+1):
+        if task_list[j] in exception_dct[task_list[i]]:
+            print(task_list[i])
+            break
