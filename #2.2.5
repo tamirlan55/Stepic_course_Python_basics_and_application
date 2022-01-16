@@ -1,0 +1,13 @@
+import datetime
+out_arr_int = list()
+dt_str = input().split()
+dt_div = int(input())
+dt = datetime.date(year = int(dt_str[0]), month = int(dt_str[1]), day = int(dt_str[2]))
+out = (dt + datetime.timedelta(days = dt_div))
+out_arr = str(out).split('-')
+for number in out_arr:
+    number = int(number)
+    out_arr_int.append(number)
+
+for i in out_arr_int:
+    print(i, end = ' ')
