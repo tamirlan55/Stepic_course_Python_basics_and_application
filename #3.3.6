@@ -1,0 +1,26 @@
+import re
+import requests
+import sys
+    
+url_input1 = str(input())
+url_input2 = str(input())
+
+resp1 = requests.get(url_input1).text
+arr_req_trans = []
+resp_trans = '1'
+arr_req_out = []
+
+arr_req_trans.extend(re.findall(r'http.+html', resp1))
+
+for url in arr_req_trans:
+    if requests.get(url).status_code != 200:
+        continue
+    else:
+        resp_trans = requests.get(url).text
+        arr_req_out.extend(re.findall(r'http.+html', resp_trans))
+
+  
+if url_input2 in arr_req_out:
+    print('Yes')
+else:
+    print('No')
