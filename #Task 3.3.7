@@ -1,0 +1,25 @@
+import re
+import requests
+
+
+main_input = input()
+
+main_res_text = requests.get(main_input).text
+main_res_text
+
+arr_res = re.findall(r'(?:<a.*href=)(?:\'|\")(?:\w+://)?(([\w+\-]*\.)+\w+)', main_res_text)
+
+#print(arr_res)
+set_tmp = set()
+for tpl in arr_res:
+    set_tmp.add(tpl[0])
+    
+#print(set_tmp)
+arr_out = []
+for url in set_tmp:
+    arr_out.append(url)
+
+arr_out.sort()
+    
+for url in arr_out:
+    print(url)
