@@ -1,0 +1,24 @@
+file = open('Crimes.csv', 'r')
+file2 = open('Crimes.csv', 'r')
+
+
+file_csv = csv.reader(file)
+type_dict = dict()
+for row in file_csv:
+
+    if row[5] not in type_dict:
+        type_dict[row[5]] = 0
+        
+file_c = csv.reader(file2)
+for row in file_c:
+
+    if re.match(r'\w+/\w+/2015.*', row[2]):
+        type_dict[row[5]] += 1
+
+dig = 0
+res = 'l'
+for key in type_dict:
+    if dig < type_dict[key]:
+        dig = type_dict[key]
+        res = key
+print(res)
