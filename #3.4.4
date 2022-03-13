@@ -1,0 +1,28 @@
+import json
+
+js_again = json.loads(input())   
+
+graph_dict = dict()      
+for knot in js_again:
+    graph_dict[knot['name']] = set(knot['parents'])            
+   
+def DFS_rec(graph, knot, visited = None):                    
+    if visited == None:
+        visited = set()
+    for ver in graph[knot] - visited:
+        visited.add(ver)
+        DFS_rec(graph, ver, visited)
+    return visited
+
+child_allparents = dict()                                      
+
+for knot in graph_dict:
+    child_allparents[knot] = DFS_rec(graph_dict, knot)
+    
+
+for child in sorted(child_allparents.keys()):
+    count = 1
+    for parents in child_allparents:
+        if child in child_allparents[parents]:
+            count += 1
+    print(child + ' : ' + str(count))
