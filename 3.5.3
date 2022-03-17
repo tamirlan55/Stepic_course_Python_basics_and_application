@@ -1,0 +1,15 @@
+import requests
+import json
+
+for line in file_read:
+    res = requests.get('http://numbersapi.com/' + line.replace('\n', '') + '/math?json=true')
+    res_js = json.loads(res.text)
+    if res_js['found'] == True:
+        file_result.write('Interesting' + '\n')
+        print('Interesting')
+    else:
+        file_result.write('Boring' + '\n')
+        print('Boring')
+
+file_result.close()
+file.close()
