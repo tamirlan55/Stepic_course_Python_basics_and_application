@@ -1,0 +1,34 @@
+import requests
+import json
+
+client_id = '506064b4a46396f71c81'
+client_secret = '5f83601187ce4cc3bded63177464ed8b'
+
+api_url = 'https://api.artsy.net/api/tokens/xapp_token'
+resp = requests.post(api_url, 
+                    data = {
+                        'client_id': client_id,
+                        'client_secret': client_secret
+                    })
+
+print(resp.status_code)
+json_to_python = json.loads(resp.text)
+token = json_to_python['token']
+headers = {'X-Xapp-Token': token}
+
+file_input = open('step_in.txt', 'r')
+file_in_read = file_input.readlines()
+file_out = open('step_out.txt', 'w', encoding = 'utf8')
+dict_out = dict()
+
+for line in file_in_read:
+    resp_circle = requests.get('https://api.artsy.net/api/artists/' + line.replace('\n', ''), headers = headers)
+    resp_circle.encoding = 'utf8sig'
+    js = json.loads(resp_circle.text)
+    dict_out[js['sortable_name']] = int(js['birthday'])
+    
+for i in dict_out:
+    file_out.write(i + '\n')
+    
+file_input.close()
+file_out.close()
