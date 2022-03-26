@@ -1,0 +1,20 @@
+from xml.etree import ElementTree as ET
+root = ET.fromstring(input())
+
+result = dict()
+
+result['red'] = 0
+result['green'] = 0
+result['blue'] = 0
+
+result[root.attrib['color']] = 1
+
+def color(root, level):
+    level += 1
+    for child in root:
+        result[child.attrib['color']] += level
+        color(child, level)
+            
+color(root, 1)        
+for color in result:
+    print(str(result[color]) + ' ', end = '')
